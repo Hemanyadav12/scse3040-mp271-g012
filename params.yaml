@@ -1,0 +1,45 @@
+# All settings for the MP271 pipeline. Code reads this with yaml.safe_load.
+paths:
+  train: data/raw/train.csv
+  later: data/raw/later.csv
+  holdout: data/raw/holdout_features.csv
+  model: models/model.joblib
+  findings: reports/findings.yaml
+  predictions: predictions/holdout_predictions.csv
+
+seed: 42
+target: pickup_eta_min
+group_column: zone
+id_columns: [record_id, date]
+
+features:
+  numeric: [drivers_nearby, distance_to_driver_km, hour, rain_mm, surge, road_closures]
+  categorical: [car_type, zone]
+car_types: [mini, sedan, auto]
+zones: [Airport, Old City, Tech Park]
+
+data_checks:
+  leak_corr_threshold: 0.95        # |corr| with target above this and missing from holdout
+  sentinel_candidates: [-1, -999, 999, 9999, -9999, 99999]
+  sentinel_min_count: 3
+  unit_factors: [10, 12, 60, 100, 1000]
+  unit_ratio_threshold: 5          # group median this many times bigger/smaller than the others
+  stuck_min_days: 7                # a stuck run must last at least this many days
+  typo_median_multiple: 4          # target above this x median is a 10x typo
+
+mlflow:
+  experiment_name: mp271-cab-pickup-eta
+  registered_model_name: mp271-cab-eta-model
+  alias: champion
+  validation_fraction: 0.2         # last 20% (by date) of cleaned train is the validation block
+  candidates:
+    - {run_name: ridge_a1,  model: ridge,  params: {alpha: 1.0}}
+    - {run_name: ridge_a10, model: ridge,  params: {alpha: 10.0}}
+    - {run_name: rf_d8,     model: random_forest, params: {n_estimators: 200, max_depth: 8, min_samples_leaf: 3}}
+    - {run_name: gbr_lr05,  model: gradient_boosting, params: {n_estimators: 200, learning_rate: 0.05, max_depth: 3}}
+    - {run_name: gbr_lr10,  model: gradient_boosting, params: {n_estimators: 150, learning_rate: 0.10, max_depth: 2}}
+
+monitoring:
+  psi_bins: 10
+  retrain_fraction: 0.7            # first 70% of later (by date) joins training
+  promote_min_improvement: 0.05    # v2 MAE must be at least 5% lower than v1 MAE
