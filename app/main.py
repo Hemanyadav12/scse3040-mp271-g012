@@ -45,7 +45,6 @@ class PredictRequest(BaseModel):
             raise ValueError(f"zone must be one of {PARAMS['zones']}")
         return v
 
-
 def get_model():
     global model
     if model is None:
