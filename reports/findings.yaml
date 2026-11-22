@@ -30,10 +30,10 @@ data_issues:
     column: car_type
     true_levels: 3
 tracking:
-  experiment_name: null
-  best_run_id: null
-  registered_model_name: null
-  champion_version: null
+  experiment_name: mp271-cab-pickup-eta
+  best_run_id: 40214f94d21a4dd9a741648b7082e554
+  registered_model_name: mp271-cab-eta-model
+  champion_version: 2
 monitoring:
   psi:
     drivers_nearby: null

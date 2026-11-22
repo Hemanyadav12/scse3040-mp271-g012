@@ -52,9 +52,9 @@ def main():
     )
 
     update_findings(
-        {"data_issues": report},
-        p
-    )
+    "data_issues",
+    report
+)
 
     cut = int(
         len(train) *
@@ -145,7 +145,7 @@ def main():
 
             mlflow.sklearn.log_model(
                 pipe,
-                name="model",
+                artifact_path="model",
                 serialization_format="cloudpickle"
             )
 
@@ -195,14 +195,15 @@ def main():
         out
     )
 
-    update_findings({
-        "tracking": {
+    update_findings(
+        "tracking",
+        {
             "experiment_name": p["mlflow"]["experiment_name"],
             "best_run_id": best_id,
             "registered_model_name": name,
             "champion_version": int(mv.version),
         }
-    }, p)
+    )
 
     print(
         f"\nv1 = {best_name} "
