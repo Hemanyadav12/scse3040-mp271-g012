@@ -19,7 +19,7 @@ def test_clean_train_fixes_all_issues(tiny_train, params):
 
     holdout_cols = set(tiny_train.columns) - {"pickup_eta_min", "actual_pickup_after_min"}
     issues = run_all_checks(df, holdout_cols, params)
-    cleaned = clean_train(df, issues, params)
+    cleaned, report = clean_train(df, holdout_cols, params, report=issues)
 
     # Leaking column dropped
     assert "actual_pickup_after_min" not in cleaned.columns
