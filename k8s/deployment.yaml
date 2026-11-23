@@ -3,6 +3,8 @@ kind: Deployment
 metadata:
   name: mp271-api
 spec:
+
+
   replicas: 4
   selector:
     matchLabels:
@@ -30,3 +32,5 @@ spec:
               port: 8000
             initialDelaySeconds: 20
             periodSeconds: 10
+
+            
