@@ -33,7 +33,7 @@ tracking:
   experiment_name: mp271-cab-pickup-eta
   best_run_id: 40214f94d21a4dd9a741648b7082e554
   registered_model_name: mp271-cab-eta-model
-  champion_version: 2
+  champion_version: 3
 monitoring:
   psi:
     drivers_nearby: 0.0302
@@ -48,3 +48,6 @@ monitoring:
     Old City: 1.3523
     Tech Park: 1.5844
   worst_served_group: Airport
+  mae_v1_on_check: 3.0614
+  mae_v2_on_check: 1.951
+  decision: promote
