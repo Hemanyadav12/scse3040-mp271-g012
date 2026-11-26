@@ -4,7 +4,7 @@ import pytest
 from fastapi.testclient import TestClient
 
 from app import main
-from cabeta.features import build_pipeline
+from src.mp271.features import build_pipeline
 
 GOOD = {"drivers_nearby": 12, "distance_to_driver_km": 3.5, "hour": 9, "rain_mm": 10.0,
         "surge": 1.5, "road_closures": 4, "car_type": "sedan", "zone": "Airport"}

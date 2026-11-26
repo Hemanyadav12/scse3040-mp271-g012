@@ -7,10 +7,10 @@ import pandas as pd
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel, ConfigDict, Field, field_validator
 
-from cabeta.cleaning import normalize_car_type
-from cabeta.config import load_params, resolve
-from cabeta.features import feature_columns
-from cabeta.logging_utils import get_json_logger
+from src.mp271.cleaning import normalize_car_type
+from src.mp271.config import load_params, resolve
+from src.mp271.features import feature_columns
+from src.mp271.logging_utils import get_json_logger
 
 PARAMS = load_params()
 logger = get_json_logger("cabeta.api")
