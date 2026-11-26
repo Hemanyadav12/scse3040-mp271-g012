@@ -3,8 +3,13 @@ kind: Service
 metadata:
   name: mp271-svc
 spec:
+
+
   selector:
     app: mp271-api
   ports:
     - port: 80
       targetPort: 8000
+
+
+      
