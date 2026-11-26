@@ -28,3 +28,24 @@ def test_predict_ok(client):
     r = client.post("/predict", json=GOOD)
     assert r.status_code == 200
     assert isinstance(r.json()["prediction"], float)
+
+def test_road_closures_over_15_rejected(client):
+    assert client.post("/predict", json={**GOOD, "road_closures": 16}).status_code == 422
+    assert client.post("/predict", json={**GOOD, "road_closures": 15}).status_code == 200
+
+
+def test_negative_drivers_rejected(client):
+    assert client.post("/predict", json={**GOOD, "drivers_nearby": -1}).status_code == 422
+
+
+def test_bad_category_and_missing_field_rejected(client):
+    assert client.post("/predict", json={**GOOD, "zone": "Moon"}).status_code == 422
+    bad = dict(GOOD); bad.pop("hour")
+    assert client.post("/predict", json=bad).status_code == 422
+
+
+def test_prediction_is_logged_as_json(client, capfd):
+    client.post("/predict", json=GOOD)
+    line = [l for l in capfd.readouterr().out.splitlines() if l.startswith("{")][-1]
+    entry = json.loads(line)
+    assert entry["event"] == "prediction" and "prediction" in entry and entry["inputs"]["zone"] == "Airport"
