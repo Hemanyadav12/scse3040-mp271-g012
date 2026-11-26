@@ -17,6 +17,7 @@ logger = get_json_logger("cabeta.api")
 app = FastAPI(title="Surat Rides - pickup ETA", version="1.0")
 model = None  # loaded lazily; tests can put a small model here
 
+
 class PredictRequest(BaseModel):
     model_config = ConfigDict(extra="forbid")
 
@@ -44,6 +45,7 @@ class PredictRequest(BaseModel):
         if v not in PARAMS["zones"]:
             raise ValueError(f"zone must be one of {PARAMS['zones']}")
         return v
+
 
 def get_model():
     global model
