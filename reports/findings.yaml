@@ -36,18 +36,15 @@ tracking:
   champion_version: 2
 monitoring:
   psi:
-    drivers_nearby: null
-    distance_to_driver_km: null
-    hour: null
-    rain_mm: null
-    surge: null
-    road_closures: null
-  most_drifted_feature: null
+    drivers_nearby: 0.0302
+    distance_to_driver_km: 0.0287
+    hour: 0.0331
+    rain_mm: 0.0267
+    surge: 0.0797
+    road_closures: 3.6312
+  most_drifted_feature: road_closures
   mae_by_group:
-    Airport: null
-    Old City: null
-    Tech Park: null
-  worst_served_group: null
-  mae_v1_on_check: null
-  mae_v2_on_check: null
-  decision: null
+    Airport: 8.2513
+    Old City: 1.3523
+    Tech Park: 1.5844
+  worst_served_group: Airport
