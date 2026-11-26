@@ -43,7 +43,6 @@ def test_bad_category_and_missing_field_rejected(client):
     bad = dict(GOOD); bad.pop("hour")
     assert client.post("/predict", json=bad).status_code == 422
 
-
 def test_prediction_is_logged_as_json(client, capfd):
     client.post("/predict", json=GOOD)
     line = [l for l in capfd.readouterr().out.splitlines() if l.startswith("{")][-1]
