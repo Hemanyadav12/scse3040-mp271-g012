@@ -48,10 +48,10 @@ def main():
     by_zone = mae_by_group(v1, later, p["group_column"], p["target"], feature_columns(p))
     worst = max(by_zone, key=by_zone.get)
 
-    update_findings({"monitoring": {
+    update_findings("monitoring", {
         "psi": table, "most_drifted_feature": most,
         "mae_by_group": by_zone, "worst_served_group": worst,
-    }}, p)
+    })
     print("PSI:", table, "\nmost drifted:", most)
     print("MAE by zone:", by_zone, "\nworst served:", worst)
 
